@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { CreationsContext } from "../context/CreationsContext";
+import "../Home.css"
 
 const Home = () => {
   const [selectedCreation, setSelectedCreation] = useState(null);
@@ -12,7 +13,7 @@ const Home = () => {
 
   return (
     <div className="home">
-      <h2>Most Featured Creations</h2>
+      <h2>Más destacados</h2>
       <div className="creations-list">
         {creations.slice(0, 6).map((creation) => (
           <div className="creation" key={creation.id}>

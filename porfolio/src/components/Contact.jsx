@@ -1,44 +1,46 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
+import "../Contact.css"; // Importa tu archivo CSS
 
 const Contact = () => {
   const handleSubmit = (values, { resetForm }) => {
-    // Aquí puedes manejar el envío del formulario, como enviar un correo electrónico o realizar una solicitud a un servidor.
-    // Por ejemplo, puedes utilizar una función para enviar los datos del formulario a tu servidor o a una API.
-    // Luego de manejar el envío, puedes limpiar el formulario utilizando resetForm()
+    // ... lógica para manejar el envío del formulario
     console.log("Formulario enviado:", values);
     resetForm();
   };
 
   return (
-    <div className="contact">
-      <h2>Contact Us</h2>
+    <div className="contact-container">
+    <div className="contact-card"> {/* Agrega la clase contact-card */}
+      <h2>Contactame</h2>
       <Formik
         initialValues={{ name: "", email: "", message: "" }}
         onSubmit={handleSubmit}
       >
         <Form>
           <div className="form-group">
-            <label htmlFor="name">Name:</label>
+            <label htmlFor="name">Nombre:</label>
             <Field type="text" id="name" name="name" />
             <ErrorMessage name="name" component="div" className="error" />
           </div>
-
+<br />
           <div className="form-group">
             <label htmlFor="email">Email:</label>
             <Field type="email" id="email" name="email" />
             <ErrorMessage name="email" component="div" className="error" />
           </div>
-
+<br />
           <div className="form-group">
-            <label htmlFor="message">Message:</label>
+            <label htmlFor="message">Mensaje:</label>
             <Field as="textarea" id="message" name="message" />
             <ErrorMessage name="message" component="div" className="error" />
           </div>
-
+          
+<br />
           <button type="submit">Submit</button>
         </Form>
       </Formik>
+    </div>
     </div>
   );
 };
