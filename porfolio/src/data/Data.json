@@ -1,0 +1,88 @@
+{
+    "creaciones": [
+        {
+            "id": 1,
+            "titulo": "Cómo chilla ella",
+            "descripcion": "La canción con más reproducciones del albúm YSYSMO del artista YSY A. (72.329.895 reproducciones)",
+            "imagen": "https://i.scdn.co/image/ab67616d0000b2738aaa87d1b2aa73e9e6d24dd3",
+            "fecha": "2022"
+        },
+        {
+            "id": 2,
+            "titulo": "A por todo",
+            "descripcion": "La segunda canción con más reproducciones del albúm YSYSMO del artista YSY A. (44.562.080 reproducciones)",
+            "imagen": "https://i.scdn.co/image/ab67616d0000b2738aaa87d1b2aa73e9e6d24dd3",
+            "fecha": "2022"
+        },
+        {
+            "id": 3,
+            "titulo": "Cuánto vale hacer el amor?",
+            "descripcion": "La tercera canción con más reproducciones del albúm YSYSMO del artista YSY A. (33.302.739 reproducciones)",
+            "imagen": "https://i.scdn.co/image/ab67616d0000b2738aaa87d1b2aa73e9e6d24dd3",
+            "fecha": "2022"
+        },
+        {
+            "id": 4,
+            "titulo": "Cuántos términos?",
+            "descripcion": "La cuarta canción con más reproducciones del albúm YSYSMO del artista YSY A. (25.687.800 reproducciones)",
+            "imagen": "https://i.scdn.co/image/ab67616d0000b2738aaa87d1b2aa73e9e6d24dd3",
+            "fecha": "2022"
+        },
+        {
+            "id": 5,
+            "titulo": "Relojes reventados",
+            "descripcion": "La quinta canción con más reproducciones del albúm YSYSMO del artista YSY A. (17.884.492 reproducciones)",
+            "imagen": "https://i.scdn.co/image/ab67616d0000b2738aaa87d1b2aa73e9e6d24dd3",
+            "fecha": "2022"
+        },
+        {
+            "id": 6,
+            "titulo": "Uoh oh oh",
+            "descripcion": "La sexta canción con más reproducciones del albúm YSYSMO del artista YSY A. (17.291.716 reproducciones)",
+            "imagen": "https://i.scdn.co/image/ab67616d0000b2738aaa87d1b2aa73e9e6d24dd3",
+            "fecha": "2022"
+        },
+        {
+            "id": 7,
+            "titulo": "Un piso más",
+            "descripcion": "Esta canción del álbum YSYSMO cuenta con 13.275.403 reproducciones",
+            "imagen": "https://i.scdn.co/image/ab67616d0000b2738aaa87d1b2aa73e9e6d24dd3",
+            "fecha": "2022"
+        },
+        {
+            "id": 8,
+            "titulo": "Ser el trap",
+            "descripcion": "Esta canción del álbum YSYSMO cuenta con 10.264.899 reproducciones",
+            "imagen": "https://i.scdn.co/image/ab67616d0000b2738aaa87d1b2aa73e9e6d24dd3",
+            "fecha": "2022"
+        },
+        {
+            "id": 9,
+            "titulo": "Cuál?",
+            "descripcion": "Esta canción del álbum YSYSMO cuenta con 10.111.711 reproducciones",
+            "imagen": "https://i.scdn.co/image/ab67616d0000b2738aaa87d1b2aa73e9e6d24dd3",
+            "fecha": "2022"
+        },
+        {
+            "id": 10,
+            "titulo": "Heridas al fuego",
+            "descripcion": "Esta canción del álbum YSYSMO cuenta con 9.008.218 reproducciones",
+            "imagen": "https://i.scdn.co/image/ab67616d0000b2738aaa87d1b2aa73e9e6d24dd3",
+            "fecha": "2022"
+        },
+        {
+            "id": 11,
+            "titulo": "Pa esta soledad",
+            "descripcion": "Esta canción del álbum YSYSMO cuenta con 8.911.560 reproducciones",
+            "imagen": "https://i.scdn.co/image/ab67616d0000b2738aaa87d1b2aa73e9e6d24dd3",
+            "fecha": "2022"
+        },
+        {
+            "id": 12,
+            "titulo": "Todo pago",
+            "descripcion": "Esta canción del álbum YSYSMO cuenta con 7.554.960 reproducciones",
+            "imagen": "https://i.scdn.co/image/ab67616d0000b2738aaa87d1b2aa73e9e6d24dd3",
+            "fecha": "2022"
+        }
+    ]
+}

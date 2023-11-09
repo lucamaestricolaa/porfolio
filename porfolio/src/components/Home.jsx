@@ -1,30 +1,42 @@
-import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
-import { CreationsContext } from "../context/CreationsContext";
+import React, { useState } from "react";
+import Modal from "./Modal";
+import CreationCard from "./CreationCard";
+import data from '../data/Data.json';
 import "../Home.css"
 
 const Home = () => {
   const [selectedCreation, setSelectedCreation] = useState(null);
-  const { creations, addToFavorites } = useContext(CreationsContext);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleDetailsClick = (creation) => {
+    setSelectedCreation(creation);
+    setIsModalOpen(true);
+  };
 
   const handleAddToFavorites = (creation) => {
-    addToFavorites(creation);
+    // Lógica para añadir a favoritos si es necesario
   };
 
   return (
     <div className="home">
       <h2>Más destacados</h2>
       <div className="creations-list">
-        {creations.slice(0, 6).map((creation) => (
-          <div className="creation" key={creation.id}>
-            <h3>{creation.title}</h3>
-            <p>{creation.description}</p>
-            <img src={creation.imageUrl} alt={creation.title} />
-            <button onClick={() => handleAddToFavorites(creation)}>Add to Favorites</button>
-            <Link to={`/creations/${creation.id}`}>Details</Link>
-          </div>
+        {data.creaciones.slice(0, 6).map((creation) => (
+          <CreationCard
+            key={creation.id}
+            creation={creation}
+            onAddToFavorites={handleAddToFavorites}
+            onDetailsClick={handleDetailsClick}
+          />
         ))}
       </div>
+
+      {isModalOpen && selectedCreation && (
+        <Modal
+          creation={selectedCreation}
+          onClose={() => setIsModalOpen(false)}
+        />
+      )}
     </div>
   );
 };

@@ -1,19 +1,18 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import About from "./components/About";
 import Creations from "./components/Creations";
 import Favorites from "./components/Favorites";
 import Contact from "./components/Contact";
-import { CreationsContextProvider } from "./context/CreationsContext";
-import { FavoritesContextProvider } from "./context/FavoritesContext";
+import UsuarioProvider from "./context/ContextUsuario";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
-    <Router>
-      <div className="app">
+    <UsuarioProvider>
+      <BrowserRouter>
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -23,19 +22,9 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
         </Routes>
         <Footer />
-      </div>
-    </Router>
+      </BrowserRouter>
+    </UsuarioProvider>
   );
 };
 
-const WrappedApp = () => {
-  return (
-    <CreationsContextProvider>
-      <FavoritesContextProvider>
-        <App />
-      </FavoritesContextProvider>
-    </CreationsContextProvider>
-  );
-};
-
-export default WrappedApp;
+export default App;
