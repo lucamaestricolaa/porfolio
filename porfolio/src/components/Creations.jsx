@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import data from '../data/Data.json'; // Importa los datos del JSON
+import data from '../data/Data.json'; 
 
 const Creations = () => {
   const [currentPage, setCurrentPage] = useState(1);
