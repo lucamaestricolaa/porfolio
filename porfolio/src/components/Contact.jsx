@@ -1,17 +1,16 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
-import "../Contact.css"; // Importa tu archivo CSS
+import "../Contact.css";
 
 const Contact = () => {
   const handleSubmit = (values, { resetForm }) => {
-    // ... lógica para manejar el envío del formulario
     console.log("Formulario enviado:", values);
     resetForm();
   };
 
   return (
     <div className="contact-container">
-    <div className="contact-card"> {/* Agrega la clase contact-card */}
+    <div className="contact-card">
       <h2>Contactame</h2>
       <Formik
         initialValues={{ name: "", email: "", message: "" }}
