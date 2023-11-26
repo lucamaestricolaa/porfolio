@@ -1,3 +1,4 @@
+// Home.js
 import React, { useState, useEffect } from "react";
 import Modal from "./Modal";
 import CreationCard from "./CreationCard";
@@ -9,7 +10,11 @@ const Home = () => {
   const [selectedCreation, setSelectedCreation] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [favorites, setFavorites] = useState([]);
-  const [usuario, setUsuario] = useState(null);
+  const [usuario, setUsuario] = useState(() => {
+    const storedUsuario = localStorage.getItem("usuario");
+    return storedUsuario ? JSON.parse(storedUsuario) : null;
+  });
+
   const [loginUsuario, setLoginUsuario] = useState("");
 
   useEffect(() => {
@@ -22,6 +27,10 @@ const Home = () => {
   useEffect(() => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
+
+  useEffect(() => {
+    localStorage.setItem("usuario", JSON.stringify(usuario));
+  }, [usuario]);
 
   const handleDetailsClick = (creation) => {
     setSelectedCreation(creation);
@@ -48,19 +57,24 @@ const Home = () => {
 
   return (
     <div className="home">
-      <h2>Más destacados</h2>
-
-      {!usuario && (
+      {usuario ? (
         <div>
+          <h1>Bienvenido {usuario}!</h1><br />
+        </div>
+      ) : (
+        <div>
+          <h1>Login</h1><br />
           <input
             type="text"
             value={loginUsuario}
             onChange={(e) => setLoginUsuario(e.target.value)}
             placeholder="Ingrese su usuario"
-          />
+          /> <br /><br />
           <button onClick={handleLogin}>Iniciar sesión</button>
         </div>
       )}
+
+      <h2>Más destacados</h2>
 
       <div className="creations-list">
         {data.creaciones.slice(0, 6).map((creation) => (
@@ -81,7 +95,12 @@ const Home = () => {
         />
       )}
 
-      <Favorites favorites={favorites} onDetailsClick={handleDetailsClick} />
+      <Favorites
+        favorites={favorites}
+        onDetailsClick={handleDetailsClick}
+        onAddToFavorites={handleAddToFavorites}
+        usuario={usuario}
+      />
     </div>
   );
 };
