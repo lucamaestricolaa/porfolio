@@ -1,8 +1,7 @@
-// Favorites.jsx
 import React, { useEffect } from "react";
 import CreationCard from "./CreationCard";
 
-const Favorites = ({ favorites, onDetailsClick, onAddToFavorites }) => {
+const Favorites = ({onDetailsClick, onAddToFavorites}) => {
   const [usuario, setUsuario] = React.useState(() => {
     try {
       const storedUsuario = localStorage.getItem("usuario");
@@ -12,6 +11,17 @@ const Favorites = ({ favorites, onDetailsClick, onAddToFavorites }) => {
       return null;
     }
   });
+
+  const [favorites, setFavorites] = React.useState(() => {
+    try {
+      const storedFavorites = JSON.parse(localStorage.getItem("favorites"));
+      return storedFavorites !== null ? JSON.parse(storedFavorites) : null;
+    }
+    catch (error) {
+      console.error("Error al parsear el usuario:", error);
+      return null;
+  }
+});
 
   useEffect(() => {
     try {
@@ -25,10 +35,25 @@ const Favorites = ({ favorites, onDetailsClick, onAddToFavorites }) => {
     }
   }, []);
 
+  useEffect(() => {
+    try {
+      const storedFavorites = localStorage.getItem("favorites");
+      if (storedFavorites !== null) {
+        const parsedFavorites = JSON.parse(storedFavorites);
+        setFavorites(parsedFavorites);
+      }
+    } catch (error) {
+      console.error("Error al parsear el usuario:", error);
+    }
+  }, []);
+
   const handleAddToFavorites = (creation) => {
     onAddToFavorites(creation);
   };
 
+  const handleDetailsClick = (creation) => {
+    onDetailsClick(creation);
+  }
   return (
     <div>
       <h2>Favoritos</h2>
@@ -38,7 +63,7 @@ const Favorites = ({ favorites, onDetailsClick, onAddToFavorites }) => {
             <CreationCard
               key={creation.id}
               creation={creation}
-              onDetailsClick={onDetailsClick}
+              onDetailsClick={handleDetailsClick}
               onAddToFavorites={handleAddToFavorites}
               isFavorite={true}
               usuario={usuario}

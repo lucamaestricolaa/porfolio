@@ -103,10 +103,8 @@ const Home = () => {
       )}
 
       <Favorites
-        favorites={favorites}
         onDetailsClick={handleDetailsClick}
         onAddToFavorites={handleAddToFavorites}
-        usuario={usuario}
       />
     </div>
   );
