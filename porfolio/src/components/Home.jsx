@@ -1,4 +1,3 @@
-// Home.js
 import React, { useState, useEffect } from "react";
 import Modal from "./Modal";
 import CreationCard from "./CreationCard";
@@ -23,8 +22,9 @@ const Home = () => {
       setFavorites(storedFavorites);
     }
   }, []);
-
+  
   useEffect(() => {
+    console.log("Guardando favoritos:", favorites);
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
 
@@ -40,12 +40,14 @@ const Home = () => {
   const handleAddToFavorites = (creation) => {
     if (usuario) {
       if (!favorites.some((fav) => fav.id === creation.id)) {
-        setFavorites((prevFavorites) => [...prevFavorites, creation]);
+        const newFavorites = [...favorites, creation];
+        setFavorites(newFavorites);
       } else {
-        setFavorites((prevFavorites) =>
-          prevFavorites.filter((fav) => fav.id !== creation.id)
-        );
+        const newFavorites = favorites.filter((fav) => fav.id !== creation.id);
+        setFavorites(newFavorites);
       }
+      console.log("Nuevo estado de favoritos:", favorites);
+      console.log("Contenido de localStorage:", localStorage.getItem("favorites"));
     } else {
       alert("Debe logearse para agregar a favorito");
     }
@@ -55,11 +57,16 @@ const Home = () => {
     setUsuario(loginUsuario);
   };
 
+  const logOut = () => {
+    setUsuario(null);
+  }
+ 
   return (
     <div className="home">
       {usuario ? (
         <div>
           <h1>Bienvenido {usuario}!</h1><br />
+          <button onClick={logOut}>Cerrar sesión</button>
         </div>
       ) : (
         <div>

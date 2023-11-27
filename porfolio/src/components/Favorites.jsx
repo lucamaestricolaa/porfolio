@@ -1,21 +1,32 @@
+// Favorites.jsx
 import React, { useEffect } from "react";
 import CreationCard from "./CreationCard";
 
 const Favorites = ({ favorites, onDetailsClick, onAddToFavorites }) => {
   const [usuario, setUsuario] = React.useState(() => {
-    const storedUsuario = localStorage.getItem("usuario");
-    return storedUsuario ? JSON.parse(storedUsuario) : null;
+    try {
+      const storedUsuario = localStorage.getItem("usuario");
+      return storedUsuario !== null ? JSON.parse(storedUsuario) : null;
+    } catch (error) {
+      console.error("Error al parsear el usuario:", error);
+      return null;
+    }
   });
 
   useEffect(() => {
-    const storedUsuario = localStorage.getItem("usuario");
-    if (storedUsuario) {
-      setUsuario(JSON.parse(storedUsuario));
+    try {
+      const storedUsuario = localStorage.getItem("usuario");
+      if (storedUsuario !== null) {
+        const parsedUsuario = JSON.parse(storedUsuario);
+        setUsuario(parsedUsuario);
+      }
+    } catch (error) {
+      console.error("Error al parsear el usuario:", error);
     }
   }, []);
 
   const handleAddToFavorites = (creation) => {
-    onAddToFavorites(creation); // Utiliza la función pasada como prop
+    onAddToFavorites(creation);
   };
 
   return (
@@ -27,7 +38,7 @@ const Favorites = ({ favorites, onDetailsClick, onAddToFavorites }) => {
             <CreationCard
               key={creation.id}
               creation={creation}
-              onDetailsClick={onDetailsClick} // Asegúrate de pasar la función correcta
+              onDetailsClick={onDetailsClick}
               onAddToFavorites={handleAddToFavorites}
               isFavorite={true}
               usuario={usuario}
