@@ -1,9 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import CreationCard from "./CreationCard";
+import Modal from "./Modal";
 
-const Favorites = ({ onDetailsClick, onAddToFavorites }) => {
+const Favorites = () => {
   const [usuario, setUsuario] = React.useState(null);
   const [favorites, setFavorites] = React.useState([]);
+  const [selectedCreation, setSelectedCreation] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     try {
@@ -29,13 +32,29 @@ const Favorites = ({ onDetailsClick, onAddToFavorites }) => {
     }
   }, []);
 
-  const handleAddToFavorites = (creation) => {
-    onAddToFavorites(creation);
+  const handleDetailsClick = (creation) => {
+    setSelectedCreation(creation);
+    setIsModalOpen(true);
   };
 
-  const handleDetailsClick = (creation) => {
-    onDetailsClick(creation);
+  const handleAddToFavorites = (creation) => {
+    if (usuario) {
+      if (!favorites.some((fav) => fav.id === creation.id)) {
+        const newFavorites = [...favorites, creation];
+        setFavorites(newFavorites);
+        localStorage.setItem("favorites", JSON.stringify(newFavorites));
+      } else {
+        const newFavorites = favorites.filter((fav) => fav.id !== creation.id);
+        setFavorites(newFavorites);
+        localStorage.setItem("favorites", JSON.stringify(newFavorites));
+      }
+      console.log("Nuevo estado de favoritos:", favorites);
+      console.log("Contenido de localStorage:", localStorage.getItem("favorites"));
+    } else {
+      alert("Debe logearse para agregar a favorito");
+    }
   };
+  
 
   return (
     <div>
@@ -54,6 +73,12 @@ const Favorites = ({ onDetailsClick, onAddToFavorites }) => {
         </div>
       ) : (
         <p>No hay favoritos.</p>
+      )}
+      {isModalOpen && selectedCreation && (
+        <Modal
+          creation={selectedCreation}
+          onClose={() => setIsModalOpen(false)}
+        />
       )}
     </div>
   );

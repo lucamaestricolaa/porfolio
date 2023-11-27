@@ -1,37 +1,74 @@
-import React, { useState } from "react";
+import React, {useState, useEffect} from "react";
 import data from '../data/Data.json'; 
+import CreationCard from "./CreationCard";
+import Modal from "./Modal";
 
 const Creations = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const creationsPerPage = 10;
+  const [selectedCreation, setSelectedCreation] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [favorites, setFavorites] = useState([]);
+  const [usuario, setUsuario] = useState(() => {
+    const storedUsuario = localStorage.getItem("usuario");
+    return storedUsuario ? JSON.parse(storedUsuario) : null;
+  });
 
-  const indexOfLastCreation = currentPage * creationsPerPage;
-  const indexOfFirstCreation = indexOfLastCreation - creationsPerPage;
-  const currentCreations = data.creaciones.slice(indexOfFirstCreation, indexOfLastCreation);
+  useEffect(() => {
+    try {
+      const storedFavorites = localStorage.getItem("favorites");
+      if (storedFavorites !== null) {
+        const parsedFavorites = JSON.parse(storedFavorites);
+        setFavorites(parsedFavorites);
+      }
+    } catch (error) {
+      console.error("Error al parsear los favoritos:", error);
+    }
+  }, []);
+  
+  useEffect(() => {
+    console.log("Guardando favoritos:", favorites);
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites]);
 
-  const paginate = (pageNumber) => {
-    setCurrentPage(pageNumber);
+  const handleDetailsClick = (creation) => {
+    setSelectedCreation(creation);
+    setIsModalOpen(true);
   };
 
+  const handleAddToFavorites = (creation) => {
+    if (usuario) {
+      if (!favorites.some((fav) => fav.id === creation.id)) {
+        const newFavorites = [...favorites, creation];
+        setFavorites(newFavorites);
+      } else {
+        const newFavorites = favorites.filter((fav) => fav.id !== creation.id);
+        setFavorites(newFavorites);
+      }
+      console.log("Nuevo estado de favoritos:", favorites);
+      console.log("Contenido de localStorage:", localStorage.getItem("favorites"));
+    } else {
+      alert("Debe logearse para agregar a favorito");
+    }
+  };
   return (
     <div className="creations">
       <h2>All Creations</h2>
       <div className="creations-list">
-        {currentCreations.map((creation) => (
-          <div className="creation" key={creation.id}>
-            <h3>{creation.titulo}</h3>
-            {creation.imagen && <img src={creation.imagen} alt={creation.titulo} />}
-          </div>
+        {data.creaciones.map((creation) => (
+          <CreationCard
+          key={creation.id}
+          creation={creation}
+          onAddToFavorites={handleAddToFavorites}
+          onDetailsClick={handleDetailsClick}
+          isFavorite={favorites.some((fav) => fav.id === creation.id)}
+        />
         ))}
       </div>
-      <div className="pagination">
-        {data.creaciones.length > creationsPerPage &&
-          Array.from({ length: Math.ceil(data.creaciones.length / creationsPerPage) }, (_, index) => (
-            <button key={index + 1} onClick={() => paginate(index + 1)}>
-              {index + 1}
-            </button>
-          ))}
-      </div>
+      {isModalOpen && selectedCreation && (
+        <Modal
+          creation={selectedCreation}
+          onClose={() => setIsModalOpen(false)}
+        />
+      )}
     </div>
   );
 };

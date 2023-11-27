@@ -17,9 +17,14 @@ const Home = () => {
   const [loginUsuario, setLoginUsuario] = useState("");
 
   useEffect(() => {
-    const storedFavorites = JSON.parse(localStorage.getItem("favorites"));
-    if (storedFavorites) {
-      setFavorites(storedFavorites);
+    try {
+      const storedFavorites = localStorage.getItem("favorites");
+      if (storedFavorites !== null) {
+        const parsedFavorites = JSON.parse(storedFavorites);
+        setFavorites(parsedFavorites);
+      }
+    } catch (error) {
+      console.error("Error al parsear los favoritos:", error);
     }
   }, []);
   
@@ -101,11 +106,6 @@ const Home = () => {
           onClose={() => setIsModalOpen(false)}
         />
       )}
-
-      <Favorites
-        onDetailsClick={handleDetailsClick}
-        onAddToFavorites={handleAddToFavorites}
-      />
     </div>
   );
 };
