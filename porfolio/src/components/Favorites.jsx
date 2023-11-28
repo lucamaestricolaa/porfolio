@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import CreationCard from "./CreationCard";
 import Modal from "./Modal";
 
-const Favorites = () => {
+const Favorites = ({ favorites, setFavorites }) => {
   const [usuario, setUsuario] = React.useState(null);
-  const [favorites, setFavorites] = React.useState([]);
   const [selectedCreation, setSelectedCreation] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -17,18 +16,6 @@ const Favorites = () => {
       }
     } catch (error) {
       console.error("Error al parsear el usuario:", error);
-    }
-  }, []);
-
-  useEffect(() => {
-    try {
-      const storedFavorites = localStorage.getItem("favorites");
-      if (storedFavorites !== null) {
-        const parsedFavorites = JSON.parse(storedFavorites);
-        setFavorites(parsedFavorites);
-      }
-    } catch (error) {
-      console.error("Error al parsear los favoritos:", error);
     }
   }, []);
 

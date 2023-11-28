@@ -3,31 +3,13 @@ import data from '../data/Data.json';
 import CreationCard from "./CreationCard";
 import Modal from "./Modal";
 
-const Creations = () => {
+const Creations = ({ favorites, setFavorites }) => {
   const [selectedCreation, setSelectedCreation] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [favorites, setFavorites] = useState([]);
   const [usuario, setUsuario] = useState(() => {
     const storedUsuario = localStorage.getItem("usuario");
     return storedUsuario ? JSON.parse(storedUsuario) : null;
   });
-
-  useEffect(() => {
-    try {
-      const storedFavorites = localStorage.getItem("favorites");
-      if (storedFavorites !== null) {
-        const parsedFavorites = JSON.parse(storedFavorites);
-        setFavorites(parsedFavorites);
-      }
-    } catch (error) {
-      console.error("Error al parsear los favoritos:", error);
-    }
-  }, []);
-  
-  useEffect(() => {
-    console.log("Guardando favoritos:", favorites);
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-  }, [favorites]);
 
   const handleDetailsClick = (creation) => {
     setSelectedCreation(creation);

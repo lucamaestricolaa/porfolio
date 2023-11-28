@@ -16,7 +16,7 @@ const Header = () => {
     } catch (error) {
       console.error("Error al parsear los favoritos:", error);
     }
-  }, []);
+  });
 
   return (
     <header className="header">

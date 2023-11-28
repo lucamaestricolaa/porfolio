@@ -3,35 +3,16 @@ import Modal from "./Modal";
 import CreationCard from "./CreationCard";
 import data from '../data/Data.json';
 import "../Home.css";
-import Favorites from "./Favorites";
 
-const Home = () => {
+const Home = ({ favorites, setFavorites }) => {
   const [selectedCreation, setSelectedCreation] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [favorites, setFavorites] = useState([]);
   const [usuario, setUsuario] = useState(() => {
     const storedUsuario = localStorage.getItem("usuario");
     return storedUsuario ? JSON.parse(storedUsuario) : null;
   });
 
   const [loginUsuario, setLoginUsuario] = useState("");
-
-  useEffect(() => {
-    try {
-      const storedFavorites = localStorage.getItem("favorites");
-      if (storedFavorites !== null) {
-        const parsedFavorites = JSON.parse(storedFavorites);
-        setFavorites(parsedFavorites);
-      }
-    } catch (error) {
-      console.error("Error al parsear los favoritos:", error);
-    }
-  }, []);
-  
-  useEffect(() => {
-    console.log("Guardando favoritos:", favorites);
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-  }, [favorites]);
 
   useEffect(() => {
     localStorage.setItem("usuario", JSON.stringify(usuario));
@@ -64,6 +45,7 @@ const Home = () => {
 
   const logOut = () => {
     setUsuario(null);
+    setFavorites([]);
   }
  
   return (
