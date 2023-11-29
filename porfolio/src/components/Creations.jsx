@@ -2,8 +2,10 @@ import React, {useState, useEffect} from "react";
 import data from '../data/Data.json'; 
 import CreationCard from "./CreationCard";
 import Modal from "./Modal";
+import { FavoritesContext } from "../context/FavoritesContext";
 
-const Creations = ({ favorites, setFavorites }) => {
+const Creations = () => {
+  const {favorites, setFavorites} = React.useContext(FavoritesContext);
   const [selectedCreation, setSelectedCreation] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [usuario, setUsuario] = useState(() => {

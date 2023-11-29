@@ -3,8 +3,10 @@ import Modal from "./Modal";
 import CreationCard from "./CreationCard";
 import data from '../data/Data.json';
 import "../Home.css";
+import { FavoritesContext } from "../context/FavoritesContext";
 
-const Home = ({ favorites, setFavorites }) => {
+const Home = () => {
+  const {favorites, setFavorites} = React.useContext(FavoritesContext);
   const [selectedCreation, setSelectedCreation] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [usuario, setUsuario] = useState(() => {
